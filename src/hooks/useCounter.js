@@ -1,21 +1,20 @@
 import { useState } from "react";
 
-export const useCounter = (initialCounter = 0) => {
+export const useCounter = (initialCounter = 1) => {
     const [counter, setCounter] = useState(initialCounter);
-    const increment = (factor = 1) => {
-        setCounter(counter + factor)
+    const increment = (max) => {
+        const fixCounter = counter + 1
+        const validMax = fixCounter > max ? max : fixCounter
+        setCounter(validMax)
     };
     const reset = () => {
         setCounter(initialCounter)
     };
 
-    const decrement = (factor = 1) => {
-        const minimalDecrement = counter - factor
-        if (minimalDecrement < 0) {
-            reset()
-        } else {
-            setCounter(counter - factor)
-        }
+    const decrement = (min) => {
+        const minimalDecrement = counter - 1
+        const validMin = minimalDecrement < min ? min : minimalDecrement
+        setCounter(validMin)
     };
 
     return {
